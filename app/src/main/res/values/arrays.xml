@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="province">
+        <item>广东</item>
+        <item>黑龙江</item>
+        <item>江西</item>
+        <item>辽宁</item>
+        <item>内蒙古</item>
+        <item>宁夏</item>
+        <item>山西</item>
+        <item>陕西</item>
+        <item>西藏</item>
+        <item>云南</item>
+        <item>甘肃</item>
+        <item>广西</item>
+        <item>海南</item>
+    </string-array>
+</resources>

@@ -60,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
     private void moveToCenter(int position) {
         //将点击的position转换为当前屏幕上可见的item的位置以便于计算距离顶部的高度，从而进行移动居中
         View childAt = recycleview.getChildAt(position - manager.findFirstVisibleItemPosition());
+        Log.i("<<<<<<",position - manager.findFirstVisibleItemPosition()+"");
+
         int y = (childAt.getTop() - recycleview.getHeight() / 2);
+        Log.i("<<<<<<",childAt.getTop()+"");
+        Log.i("<<<<<<", y+"");
         recycleview.smoothScrollBy(0, y);
     }
     private void startMove(int position, boolean isLeft) {

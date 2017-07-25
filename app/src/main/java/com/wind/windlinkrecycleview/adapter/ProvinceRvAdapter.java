@@ -55,7 +55,7 @@ public class ProvinceRvAdapter extends RvAdapter<String> {
                 textView.setTextColor(Color.parseColor("#ffffff"));
             }
             else {
-                view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                view.setBackgroundColor(Color.parseColor("#00FFFFFF"));//设置为透明的，因为白色会覆盖分割线
                 textView.setTextColor(Color.parseColor("#1e1d1d"));
             }
             textView.setText(s);

@@ -15,7 +15,7 @@ public class Utils {
             */
     public static void showSnackBar(View view,String content)
     {
-        Snackbar snackbar = Snackbar.make(view, "当前点击的是" + content + ":" + content, Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(view, "当前点击的是: " + content , Snackbar.LENGTH_SHORT);
         View mView = snackbar.getView();
         mView.setBackgroundColor(Color.RED);
         TextView text = (TextView) mView.findViewById(android.support.design.R.id.snackbar_text);

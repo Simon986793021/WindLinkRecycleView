@@ -23,8 +23,4 @@ public class CityPresenter implements CityContract.Presenter {
         cityView.showCity();
     }
 
-    @Override
-    public void onClick() {
-
-    }
 }

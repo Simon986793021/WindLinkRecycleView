@@ -5,8 +5,9 @@
     android:id="@+id/ll_city"
     android:layout_height="60dp">
     <TextView
+        android:gravity="center"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/tv_city"
-        android:textSize="30sp"/>
+        android:textSize="20sp"/>
 </LinearLayout>

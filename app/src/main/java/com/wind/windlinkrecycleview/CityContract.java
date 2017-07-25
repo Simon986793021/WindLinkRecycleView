@@ -13,6 +13,5 @@ public interface CityContract {
     }
     interface Presenter {
         void start();
-        void onClick();
     }
 }

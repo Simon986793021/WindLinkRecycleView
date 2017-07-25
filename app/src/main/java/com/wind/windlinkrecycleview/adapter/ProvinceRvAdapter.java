@@ -1,7 +1,9 @@
 package com.wind.windlinkrecycleview.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,10 +17,15 @@ import java.util.List;
  */
 
 public class ProvinceRvAdapter extends RvAdapter<String> {
+    private int clickPositon;
     public ProvinceRvAdapter(Context context, List list,ItemClickListener listener) {
         super(context, list,listener);
     }
-
+     public  void setClickPositon(int position)
+    {
+        clickPositon=position;
+        notifyDataSetChanged();
+    }
     @Override
     protected RvHolder getHolder(View view, int viewType) {
         return new ProvinceHolder(view,viewType,listener);
@@ -31,14 +38,26 @@ public class ProvinceRvAdapter extends RvAdapter<String> {
     private class ProvinceHolder extends RvHolder<String>
     {
         private TextView textView;
+        private View view;
         public ProvinceHolder(View itemView, int type,ItemClickListener listener) {
             super(itemView,type, listener);
-            View view=itemView;
+             view=itemView;
             textView= (TextView) view.findViewById(R.id.tv_province);
         }
 
         @Override
         public void bindHolder(String s, int position) {
+
+            Log.i(">>>>>>","click"+clickPositon);
+            if (position==clickPositon)
+            {
+                view.setBackgroundColor(Color.parseColor("#9EABF4"));
+                textView.setTextColor(Color.parseColor("#ffffff"));
+            }
+            else {
+                view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                textView.setTextColor(Color.parseColor("#1e1d1d"));
+            }
             textView.setText(s);
         }
     }

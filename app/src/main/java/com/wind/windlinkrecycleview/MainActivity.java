@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.wind.windlinkrecycleview.adapter.ProvinceRvAdapter;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recycleview;
     private ProvinceRvAdapter adapter;
     private CityFragment cityFragment;
+    private LinearLayoutManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +45,30 @@ public class MainActivity extends AppCompatActivity {
         adapter=new ProvinceRvAdapter(this, list, new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Snackbar snackbar=Snackbar.make(recycleview,list.get(position),Snackbar.LENGTH_SHORT);
-                snackbar.show();
+                Utils.showSnackBar(recycleview,list.get(position));
+                startMove(position,true);
+
+                Log.i(">>>>>>","position:"+position);
+                moveToCenter(position);
             }
         });
         recycleview.setAdapter(adapter);
         addRightData();
+
+    }
+    //将当前选中的item居中
+    private void moveToCenter(int position) {
+        //将点击的position转换为当前屏幕上可见的item的位置以便于计算距离顶部的高度，从而进行移动居中
+        View childAt = recycleview.getChildAt(position - manager.findFirstVisibleItemPosition());
+        int y = (childAt.getTop() - recycleview.getHeight() / 2);
+        recycleview.smoothScrollBy(0, y);
+    }
+    private void startMove(int position, boolean isLeft) {
+        if (isLeft)
+        {
+
+        }
+        adapter.setClickPositon(position);//设置点击的位置，改变省份点击背景
     }
 
     private void addRightData() {
@@ -61,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         recycleview= (RecyclerView) findViewById(R.id.rv_left);
-        LinearLayoutManager manager=new LinearLayoutManager(this);
+        manager=new LinearLayoutManager(this);
         recycleview.setLayoutManager(manager);
         recycleview.setItemAnimator(new DefaultItemAnimator());
         recycleview.addItemDecoration(new MyDividerItemDecoration(this));

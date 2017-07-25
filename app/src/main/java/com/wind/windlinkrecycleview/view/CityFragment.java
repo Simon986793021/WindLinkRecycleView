@@ -3,7 +3,9 @@ package com.wind.windlinkrecycleview.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,9 @@ import android.view.ViewGroup;
 import com.wind.windlinkrecycleview.CityContract;
 import com.wind.windlinkrecycleview.MainActivity;
 import com.wind.windlinkrecycleview.R;
+import com.wind.windlinkrecycleview.Utils;
+import com.wind.windlinkrecycleview.adapter.CityRvAdapter;
+import com.wind.windlinkrecycleview.listener.ItemClickListener;
 import com.wind.windlinkrecycleview.model.CityBean;
 import com.wind.windlinkrecycleview.presenter.CityPresenter;
 
@@ -26,6 +31,8 @@ import java.util.List;
 public class CityFragment extends Fragment implements CityContract.View{
     private CityContract.Presenter mpresenter;
     private RecyclerView recyclerView;
+    private GridLayoutManager gridLayoutManager;
+    private CityRvAdapter adapter;
     private List<CityBean> list=new ArrayList<>();
     @Override
     public void onResume() {
@@ -62,6 +69,30 @@ public class CityFragment extends Fragment implements CityContract.View{
     public void showCity() {
         Context context=getActivity();
         initData(context.getResources().getStringArray(R.array.province));
+
+        gridLayoutManager=new GridLayoutManager(context,3);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return list.get(position).isTitle ? 3 : 1 ;
+            }
+        });
+        recyclerView.setLayoutManager(gridLayoutManager);
+        adapter=new CityRvAdapter(context, list, new ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                switch (view.getId())
+                {case R.id.root:
+                    Utils.showSnackBar(recyclerView,list.get(position).getProvince());
+                    break;
+                    case R.id.ll_city:
+                      Utils.showSnackBar(recyclerView,list.get(position).getCity());
+                        break;
+                }
+
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
     private void initData(final String[] province ) {
@@ -87,9 +118,10 @@ public class CityFragment extends Fragment implements CityContract.View{
                 titleBean.setProvince(province[i]);
                 titleBean.setTitle(true);
                 list.add(titleBean);
-                CityBean cityBean=new CityBean();
+
                 for (int j=0;j<citylist.get(i).length;j++)
                 {
+                    CityBean cityBean=new CityBean();
                     cityBean.setCity(citylist.get(i)[j]);
                     list.add(cityBean);
                 }

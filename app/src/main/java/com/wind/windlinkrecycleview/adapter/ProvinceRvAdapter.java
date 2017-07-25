@@ -21,7 +21,7 @@ public class ProvinceRvAdapter extends RvAdapter<String> {
 
     @Override
     protected RvHolder getHolder(View view, int viewType) {
-        return new ProvinceHolder(view,listener);
+        return new ProvinceHolder(view,viewType,listener);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class ProvinceRvAdapter extends RvAdapter<String> {
     private class ProvinceHolder extends RvHolder<String>
     {
         private TextView textView;
-        public ProvinceHolder(View itemView, ItemClickListener listener) {
-            super(itemView, listener);
+        public ProvinceHolder(View itemView, int type,ItemClickListener listener) {
+            super(itemView,type, listener);
             View view=itemView;
             textView= (TextView) view.findViewById(R.id.tv_province);
         }

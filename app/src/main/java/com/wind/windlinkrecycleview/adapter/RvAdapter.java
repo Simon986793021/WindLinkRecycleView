@@ -40,13 +40,18 @@ public abstract class RvAdapter <T> extends RecyclerView.Adapter<RvAdapter.RvHol
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return 0;
+    }
+
+    @Override
     public int getItemCount() {
         return list == null ? 0 : list.size();
     }
     public  abstract class RvHolder <T> extends RecyclerView.ViewHolder
     {
         protected ItemClickListener clickListener;
-        public RvHolder(View itemView ,ItemClickListener listener) {
+        public RvHolder(View itemView ,int type,ItemClickListener listener) {
             super(itemView);
             clickListener=listener;
             itemView.setOnClickListener(new View.OnClickListener() {

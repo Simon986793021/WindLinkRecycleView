@@ -21,9 +21,14 @@ public class ProvinceRvAdapter extends RvAdapter<String> {
     public ProvinceRvAdapter(Context context, List list,ItemClickListener listener) {
         super(context, list,listener);
     }
+    public ProvinceRvAdapter()
+    {
+        super();
+    }
      public  void setClickPositon(int position)
     {
         clickPositon=position;
+        Log.i("SIMON","clickposition"+clickPositon);
         notifyDataSetChanged();//更新view，否则点击背景不换
     }
     @Override

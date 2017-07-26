@@ -5,28 +5,34 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wind.windlinkrecycleview.CheckListener;
 import com.wind.windlinkrecycleview.CityContract;
+import com.wind.windlinkrecycleview.ItemHeaderDecoration;
+import com.wind.windlinkrecycleview.MainActivity;
 import com.wind.windlinkrecycleview.R;
 import com.wind.windlinkrecycleview.Utils;
 import com.wind.windlinkrecycleview.adapter.CityRvAdapter;
+import com.wind.windlinkrecycleview.adapter.ProvinceRvAdapter;
 import com.wind.windlinkrecycleview.listener.ItemClickListener;
 import com.wind.windlinkrecycleview.model.CityBean;
 import com.wind.windlinkrecycleview.presenter.CityPresenter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by zhangcong on 2017/7/24.
  */
 
-public class CityFragment extends Fragment implements CityContract.View{
+public class CityFragment extends Fragment implements CityContract.View ,CheckListener{
     private CityContract.Presenter mpresenter;
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
@@ -35,6 +41,7 @@ public class CityFragment extends Fragment implements CityContract.View{
     private int moveCounts;
     public List<String[]> citylist;
     public boolean move=false;
+    private CheckListener checkListener;
     @Override
     public void onResume() {
         super.onResume();
@@ -66,7 +73,6 @@ public class CityFragment extends Fragment implements CityContract.View{
     public void showSnackBar() {
       //  Utils.showSnackBar(view,);
     }
-
     @Override
     public void showCity() {
         Context context=getActivity();
@@ -94,6 +100,10 @@ public class CityFragment extends Fragment implements CityContract.View{
 
             }
         });
+        ItemHeaderDecoration decoration=new ItemHeaderDecoration(context,list);
+        decoration.setData(list);
+        recyclerView.addItemDecoration(decoration);
+        decoration.setCheckListener(checkListener);
         recyclerView.setAdapter(adapter);
     }
     /*
@@ -156,7 +166,7 @@ public class CityFragment extends Fragment implements CityContract.View{
 
     private void initData(final String[] province ) {
         citylist=new ArrayList<>();
-        citylist.add(new String[]{"深圳","东莞","广州","韶关"});
+        citylist.add(new String[]{"深圳","东莞","广州","韶关","汕头","肇庆","惠州"});
         citylist.add(new String[]{"哈尔滨","尚志","五常","海伦"});
         citylist.add(new String[]{"南昌","赣州","宜春","吉安"});
         citylist.add(new String[]{"沈阳","大连","鞍山","丹东"});
@@ -174,12 +184,14 @@ public class CityFragment extends Fragment implements CityContract.View{
                 CityBean titleBean=new CityBean();
                 titleBean.setProvince(province[i]);
                 titleBean.setTitle(true);
+                titleBean.setTag(String.valueOf(i));
                 list.add(titleBean);
 
                 for (int j=0;j<citylist.get(i).length;j++)
                 {
                     CityBean cityBean=new CityBean();
                     cityBean.setCity(citylist.get(i)[j]);
+                    cityBean.setTag(String.valueOf(i));
                     list.add(cityBean);
                 }
 
@@ -189,7 +201,19 @@ public class CityFragment extends Fragment implements CityContract.View{
         Log.i(">>>>>>",citylist.size()+"");
         Log.i(">>>>>>",list.size()+"");
     }
+    @Override
+    public void check(int position, boolean isScroll) {
+        checkListener.check(position,isScroll);
+    }
+    public void setCheck(CheckListener listener)
+    {
+     this.checkListener=listener;
+    }
+
     class RecyclerViewListener extends RecyclerView.OnScrollListener{
+        /*
+        监听回调，滑动结束回调。
+         */
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
@@ -203,6 +227,24 @@ public class CityFragment extends Fragment implements CityContract.View{
                     int top = recyclerView.getChildAt(n).getTop();
                     //最后的移动
                     recyclerView.scrollBy(0, top);
+                }
+            }
+        }
+            /*
+            监听回调，滑动状态改变回调
+             */
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+
+            if (move&&newState==RecyclerView.SCROLL_STATE_IDLE)
+            {
+                move=false;
+                int n=moveCounts-gridLayoutManager.findFirstVisibleItemPosition();
+                if (0<=n&&n<recyclerView.getChildCount())
+                {
+                    int top=recyclerView.getChildAt(n).getTop();
+                    recyclerView.scrollBy(0,top);
                 }
             }
         }

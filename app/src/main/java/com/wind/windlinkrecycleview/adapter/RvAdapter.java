@@ -24,6 +24,10 @@ public abstract class RvAdapter <T> extends RecyclerView.Adapter<RvAdapter.RvHol
         this.list=list;
         this.listener=listener;
     }
+    public RvAdapter()
+    {
+
+    }
     @Override
     public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType),parent,false);

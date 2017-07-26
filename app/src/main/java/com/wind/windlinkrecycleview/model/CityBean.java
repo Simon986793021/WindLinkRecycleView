@@ -8,6 +8,7 @@ public class CityBean {
     public String city;
     public boolean isTitle;
     public String province;
+    public String tag;
     public void setTitle(boolean title)
     {
         isTitle=title;
@@ -32,5 +33,13 @@ public class CityBean {
     public String getCity()
     {
         return city;
+    }
+    public void setTag(String tag)
+    {
+        this.tag=tag;
+    }
+    public String getTag()
+    {
+        return tag;
     }
 }

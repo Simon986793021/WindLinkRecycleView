@@ -199,7 +199,7 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
             }
         Log.i(">>>>>>",list.get(2).city.toString());
         Log.i(">>>>>>",citylist.size()+"");
-        Log.i(">>>>>>",list.size()+"");
+        Log.i(">>>>>>",list.size()+"size");
     }
     @Override
     public void check(int position, boolean isScroll) {

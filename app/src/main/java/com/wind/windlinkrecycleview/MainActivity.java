@@ -68,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
         recycleview.smoothScrollBy(0, y);
     }
     private void startMove(int position, boolean isLeft) {
+        int counts=0;
+        for (int i=0;i<position;i++)
+        {
+            counts+=cityFragment.citylist.get(position).length;
+        }
         if (isLeft)
         {
-
+            cityFragment.setCounts(counts+position);//加上title数目
         }
         adapter.setClickPositon(position);//设置点击的位置，改变省份点击背景
     }

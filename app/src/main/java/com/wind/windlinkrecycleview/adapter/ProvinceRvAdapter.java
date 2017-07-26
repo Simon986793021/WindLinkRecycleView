@@ -24,7 +24,7 @@ public class ProvinceRvAdapter extends RvAdapter<String> {
      public  void setClickPositon(int position)
     {
         clickPositon=position;
-        notifyDataSetChanged();
+        notifyDataSetChanged();//更新view，否则点击背景不换
     }
     @Override
     protected RvHolder getHolder(View view, int viewType) {

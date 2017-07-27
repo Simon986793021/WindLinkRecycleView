@@ -126,6 +126,9 @@ public class ItemHeaderDecoration extends RecyclerView.ItemDecoration {
         topTitleView.draw(c);//Canvas默认在视图顶部，无需平移，直接绘制
         if (flag)
             c.restore();//恢复画布到之前保存的状态
+        /*
+        如果左边的item的position与右边的tag不同，则将tag赋值给item的position，然后调用check方法实现左边联动
+         */
         if (!TextUtils.equals(tag, currentTag)) {
             currentTag = tag;
             Log.i("zhangcong",currentTag);

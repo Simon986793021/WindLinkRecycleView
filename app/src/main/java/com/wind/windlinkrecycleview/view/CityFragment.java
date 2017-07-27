@@ -45,7 +45,8 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
     @Override
     public void onResume() {
         super.onResume();
-        mpresenter.start();
+
+
     }
 
     @Nullable
@@ -54,6 +55,8 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
         View view=inflater.inflate(R.layout.fragment_city,container,false);
         recyclerView= (RecyclerView) view.findViewById(R.id.rv_city);
         recyclerView.addOnScrollListener(new RecyclerViewListener());
+        mpresenter.start();
+        Log.i("simonsimon","resume");
         return view;
 
     }
@@ -75,6 +78,7 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
     }
     @Override
     public void showCity() {
+        Log.i("simonsimon","showcity");
         Context context=getActivity();
         initData(context.getResources().getStringArray(R.array.province));
 
@@ -184,14 +188,14 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
                 CityBean titleBean=new CityBean();
                 titleBean.setProvince(province[i]);
                 titleBean.setTitle(true);
-                titleBean.setTag(String.valueOf(i));
+                titleBean.setTag(String.valueOf(i));//设置tag，方便获取position
                 list.add(titleBean);
 
                 for (int j=0;j<citylist.get(i).length;j++)
                 {
                     CityBean cityBean=new CityBean();
                     cityBean.setCity(citylist.get(i)[j]);
-                    cityBean.setTag(String.valueOf(i));
+                    cityBean.setTag(String.valueOf(i));//设置成和省份一样的tag，将省份与城市绑定。
                     list.add(cityBean);
                 }
 

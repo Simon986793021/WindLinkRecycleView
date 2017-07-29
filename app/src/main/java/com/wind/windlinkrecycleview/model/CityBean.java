@@ -6,9 +6,9 @@ package com.wind.windlinkrecycleview.model;
 
 public class CityBean {
     public String city;
-    public boolean isTitle;
+    public boolean isTitle;//判断是否为省份，来进行加载数据
     public String province;
-    public String tag;
+    public String tag;//一个position，同时将城市与省份绑定
     public void setTitle(boolean title)
     {
         isTitle=title;

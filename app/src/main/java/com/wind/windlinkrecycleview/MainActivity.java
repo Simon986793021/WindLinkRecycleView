@@ -41,8 +41,11 @@ public class MainActivity extends AppCompatActivity implements CheckListener{
     }
 
     private void initData() {
-        String [] province=getResources().getStringArray(R.array.province);
+        String [] province=getResources().getStringArray(R.array.province);//获取省份
         final List<String> list= Arrays.asList(province);
+        /*
+        适配数据和设置监听事件
+         */
         adapter=new ProvinceRvAdapter(this, list, new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -79,14 +82,14 @@ public class MainActivity extends AppCompatActivity implements CheckListener{
     }
     private void startMove(int position, boolean isLeft) {
         int counts=0;
-        for (int i=0;i<position;i++)
+        for (int i=0;i<position;i++)//position 为点击的position
         {
             Log.i("<<<<<<",i+":"+cityFragment.citylist.get(i).length);
-            counts+=cityFragment.citylist.get(i).length;
+            counts+=cityFragment.citylist.get(i).length;//计算需要滑动的城市数目
         }
         if (isLeft)
         {
-            cityFragment.setCounts(counts+position);//加上title数目
+            cityFragment.setCounts(counts+position);//加上title（省份）数目
         }
         else {
             ItemHeaderDecoration.setCurrentTag(String.valueOf(position));

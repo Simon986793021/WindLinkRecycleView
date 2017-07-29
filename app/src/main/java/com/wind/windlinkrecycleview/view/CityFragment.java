@@ -123,8 +123,8 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
     移动到指定位置
      */
     private void moveToPosition(int moveCounts) {
-        int firstItem=gridLayoutManager.findFirstVisibleItemPosition();
-        int lastItem=gridLayoutManager.findLastVisibleItemPosition();
+        int firstItem=gridLayoutManager.findFirstVisibleItemPosition();//获取屏幕可见的第一个item的position
+        int lastItem=gridLayoutManager.findLastVisibleItemPosition();//获取屏幕可见的最后一个item的position
         if (moveCounts<firstItem)
         {
             recyclerView.scrollToPosition(moveCounts);
@@ -153,6 +153,7 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
             recyclerView.scrollBy(0,top);
 
             第三种解决方案：先将目标item滑动到底部，然后进行异步处理。调用滚动监听方法RecyclerViewListener。
+            滑动到顶部
 
              */
 
@@ -187,7 +188,7 @@ public class CityFragment extends Fragment implements CityContract.View ,CheckLi
             {
                 CityBean titleBean=new CityBean();
                 titleBean.setProvince(province[i]);
-                titleBean.setTitle(true);
+                titleBean.setTitle(true);//设置为title
                 titleBean.setTag(String.valueOf(i));//设置tag，方便获取position
                 list.add(titleBean);
 

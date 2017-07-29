@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by zhangcong on 2017/7/24.
+ * 当item有不同的布局时，抽象出来的类
  */
 
 public abstract class RvAdapter <T> extends RecyclerView.Adapter<RvAdapter.RvHolder> {
@@ -28,6 +29,10 @@ public abstract class RvAdapter <T> extends RecyclerView.Adapter<RvAdapter.RvHol
     {
 
     }
+    /*
+        called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
+         an item.
+     */
     @Override
     public RvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType),parent,false);
@@ -37,6 +42,9 @@ public abstract class RvAdapter <T> extends RecyclerView.Adapter<RvAdapter.RvHol
     protected abstract RvHolder getHolder(View view, int viewType);
 
     protected abstract int getLayoutId(int viewType);
+    /*
+    展示数据被回调
+     */
     @Override
     public void onBindViewHolder(RvHolder holder, int position) {
         holder.bindHolder(list.get(position),position);
